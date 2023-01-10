@@ -76,7 +76,52 @@ for (int i = 0; i < array.GetLength(0); i++)
     }
     Console.WriteLine();
 }
-
-
-
 */
+/* Задача 59. Из двумерного массива надо удалить строку и столбец, 
+на перечении которых расположен наименьший элемент
+*/
+
+int[,] array = new int[4, 4];
+for (int i = 0; i < array.GetLength(0); i++)
+{
+    for (int j = 0; j < array.GetLength(1); j++)
+    {
+        array[i, j] = new Random().Next(10);
+        Console.Write($"{array[i, j]} ");
+    }
+    Console.WriteLine();
+}
+int imin = 0; // индекс строки минимального элемента 
+int jmin = 0; // индекс столбца минимального элемента 
+for (int i = 0; i < array.GetLength(0); i++)
+{
+    for (int j = 0; j < array.GetLength(1); j++)
+    {
+        if (array[i, j] < array[imin, jmin]) ; // нашли индексы минмиальных элементов 
+        {
+            imin = i;
+            jmin = j;
+        }
+    }
+}
+int[,] array2 = new int[array.GetLength(0) - 1, array.GetLength(1) - 1]; // поскольку мы удаляем строку и столбец, то берём параметры изначального массива и уменьшаем на 1 
+for (int i = 0, i2 = 0; i2 < array2.GetLength(0); i++, i2++)
+{
+    for (int j = 0, j2 = 0; j2 < array2.GetLength(1); j++, j2++)
+    {
+        if (i == imin) i++;
+        if (j == jmin) j++;
+        array2[i2, j2] = array[i, j];
+    }
+}
+array = array2;
+
+Console.WriteLine($"\n{imin} {jmin}");
+for (int i = 0; i < array.GetLength(0); i++)
+{
+    for (int j = 0; j < array.GetLength(1); j++)
+
+        Console.Write($"{array[i, j]} ");
+    Console.WriteLine();
+
+}
